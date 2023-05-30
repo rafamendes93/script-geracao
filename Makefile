@@ -11,4 +11,4 @@ up:
 	docker compose -f $(DOCKER_COMPOSE_PATH) logs -f
 
 down:
-	docker compose -f $(DOCKER_COMPOSE_PATH) down
+	docker compose -f $(DOCKER_COMPOSE_PATH) down --volumes --timeout 0
