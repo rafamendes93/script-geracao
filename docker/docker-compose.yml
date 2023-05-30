@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   sql-server:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    image:  docker.io/library/sqlserver-geracao-ecf:default
     container_name: sql-server
     environment:
       - MSSQL_SA_PASSWORD=Password@123
