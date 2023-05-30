@@ -11,7 +11,12 @@ BEGIN
 END
 GO
 
-CREATE Function [dbo].[Aud_Mask](@Value Decimal(27, 10), @Separator nVarChar(1) = ',')
+CREATE Function [dbo].[Aud_Mask](
+@Value Decimal(27,10),
+@Separator nVarChar(1) = ',',
+@Decimal as Integer = 2,
+@StrSpace nVarChar(1) = '',
+@Lenght as Integer = 19)
     RETURNS VarChar(30)
 As
 Begin
