@@ -57,7 +57,6 @@ END
 
 select '1'                                as ID
      , '1'                                as ID_PAI
-
      , '0000'                             as REG
      , isnull(eecd.lecd, '')              as LECD
      , dbo.FormatDateDMA(eecd.periodo_dtini) as DT_INI
@@ -179,7 +178,7 @@ select distinct
 ,case when len(rtrim(isnull(partrel.dt_ini_rel,''))) <> 8 then '' else replace(convert(varchar(10),convert(date,partrel.dt_ini_rel,112),103),'/','') end as DT_INI_REL
 ,case when len(rtrim(isnull(partrel.dt_fin_rel,''))) <> 8 then '' else replace(convert(varchar(10),convert(date,partrel.dt_fin_rel,112),103),'/','') end as DT_FIN_REL
 /*into tmp_wwreg_0150_0180*/
-into <<tmpaux>>_wwreg_0150_0180
+into TEMP_wwreg_0150_0180
 /* -- tabela principal alias eecd */
 from estabelecimento_ecd eecd
 /* -- join com estabelecimentos */
@@ -233,7 +232,7 @@ select
 ,Case When right(max(part.COD_PAIS),4) <> '1058' Then '' Else max(part.IM) End as IM
 ,Case When right(max(part.COD_PAIS),4) <> '1058' Then '' Else max(part.SUFRAMA) End as SUFRAMA
 /*from tmp_wwreg_0150_0180 part*/
-from <<tmpaux>>_wwreg_0150_0180 part
+from TEMP_wwreg_0150_0180 part
 where part.cod_rel Between '01' And '99'
 group by ID_0150
 order by ID_0150
@@ -256,7 +255,7 @@ select
 ,case when part.dt_ini_rel is null then '' else replace(convert(varchar(10),convert(date,part.dt_fin_rel,112),103),'/','') end as DT_FIN_REL
 */
 /*from tmp_wwreg_0150_0180 part*/
-from <<tmpaux>>_wwreg_0150_0180 part
+from TEMP_wwreg_0150_0180 part
 where part.cod_rel Between '01' And '99'
 order by ID_0180
 
@@ -383,7 +382,7 @@ select
 ,isnull(ctaref.COD_CCUS,'') as COD_CCUS
 ,isnull(ctaref.COD_CTA_REF,cta.COD_CTA_REF) as COD_CTA_REF
 /*into tmp_wwreg_i050_i051*/
-into <<tmpaux>>_wwreg_i050_i051
+into TEMP_wwreg_i050_i051
 from estabelecimento_ecd eecd
 inner Join estabelecimentos estm
    on estm.estabelecimento_id = eecd.estabelecimento_matriz_id
@@ -416,7 +415,7 @@ select
 ,max(COD_CTA) as COD_CTA
 ,max(COD_CTA_SUP) as COD_CTA_SUP
 ,max(NOME_CTA) as CTA
-from <<tmpaux>>_wwreg_i050_i051
+from TEMP_wwreg_i050_i051
 group by ID_I050
 order by 1
 
@@ -429,14 +428,14 @@ select
 ,'I051' as REG
 ,COD_CCUS as COD_CCUS
 ,COD_CTA_REF as COD_CTA_REF
-from <<tmpaux>>_wwreg_i050_i051
+from TEMP_wwreg_i050_i051
 where 1 = 1
   and IND_CTA = 'A'
 order by 1
 
 /*sql*/
 
-/*drop table <<tmpaux>>_wwreg_i050_i051*/
+/*drop table TEMP_wwreg_i050_i051*/
 
 /*sql*/
 
@@ -455,7 +454,7 @@ select
 ,isnull(ctaref.COD_CCUS,'') as COD_CCUS
 ,isnull(ctaref.COD_CTA_REF,cta.COD_CTA_SUP) as COD_CTA_AGL
 /*into tmpaux_wwreg_i050_i052 */
-into <<tmpaux>>_wwreg_i050_i052
+into TEMP_wwreg_i050_i052
 from estabelecimento_ecd eecd
 inner Join estabelecimentos estm
    on estm.estabelecimento_id = eecd.estabelecimento_matriz_id
@@ -484,14 +483,14 @@ select
 ,'I052' as REG
 ,COD_CCUS as COD_CCUS
 ,COD_CTA_AGL as COD_AGL
-from <<tmpaux>>_wwreg_i050_i052
+from TEMP_wwreg_i050_i052
 where 1 =1
   and IND_CTA = 'A'
 order by 1
 
 /*sql*/
 
-/*drop table <<tmpaux>>_wwreg_i050_i052*/
+/*drop table TEMP_wwreg_i050_i052*/
 
 /*sql*/
 

@@ -1,54 +1,7 @@
-CREATE Function [dbo].[Aud_Mask]
-(
- @Value Decimal(27,10)
-,@Separator nVarChar(1) = ','
-,@Decimal as Integer = 2
-,@StrSpace nVarChar(1) = ''
-,@Lenght as Integer = 19
-)
-RETURNS VarChar(30)
-As
-Begin
-	Declare
-	 @WReturn VarChar(30)
-	,@WPos as integer
-	Set @WReturn = REPLACE(@Value,'.',@Separator)
-	Set @WPos = LEN(@WReturn)
-	If @Value = 0
-		Set @WReturn = '0';
-	Else
-		If CHARINDEX(@Separator, @WReturn) > 0
-			While @WPos > 1
-				Begin
-					If SUBSTRING(@WReturn,@WPos,1) <> '0'
-						BREAK;
-					Se
-
-CREATE FUNCTION dbo.FormatDateDMA(@date DATETIME)
-    RETURNS VARCHAR(8)
-AS
-BEGIN
-    IF (@date IS NULL)
-    RETURN ''
-    ELSE
-    RETURN REPLACE(CONVERT(VARCHAR(10), CONVERT(DATE, @date, 112), 103), '/', '')
-
-    RETURN ''
-END;
-
--- CREATE FUNCTION dbo.IsnullConvert(@valor SQL_VARIANT, @valorSeNulo VARCHAR)
---     RETURNS VARCHAR(8)
--- AS
--- BEGIN
---     return isnull(CONVERT(VARCHAR, @valor), @valorSeNulo)
--- END;
-
-
 Select '1'                                                  as ID
      , '1'                                                  as ID_PAI
      , '0000'                                               as REG
      , 'LECF'                                               as NOME_ESC
-    /* confirmar a versão */
      , isnull(eecf.cod_ver, '0009')                         as COD_VER
      , isnull(estm.CNPJ, '')                                as CNPJ
      , isnull(estm.NOME, '')                                as NOME
@@ -101,7 +54,6 @@ Select '1'                                                  as ID
     /* --Valor 1 2 ou 3? */
      , isnull(eecf.IND_ALIQ_CSLL, '1')                      as IND_ALIQ_CSLL
      , dbo.Aud_Mask(abs(eecf.PAT_REMAN_CIS), ',', 0, '', 3) as IND_QTE_SCP
-    /* --é realmente esses campos da tabela? S ou N?*/
      , isnull(eecf.IND_ADM_FUN_CLUS, 'N')                   as IND_ADM_FUN_CLU
      , isnull(eecf.IND_PART_CONS, 'N')                      as IND_PART_CONS
      , isnull(eecf.IND_OP_EXT, 'N')                         as IND_OP_EXT
@@ -184,7 +136,6 @@ where estm.estabelecimento_id = '/*empresa_id_vtx*/'
 Select '1'                                         as ID
      , '1'                                         as ID_PAI
      , 'J050'                                      as REG
-    /* --confirmar se esse campo é o inclusao_dt mesmo ou se não precisa */
      , dbo.FormatDateDMA(cta.inclusao_dt)          as DT_ALT
      , isnull(cta.cod_nat_cta, '')                 as COD_NAT
      , isnull(cta.IND_CTA, '')                     as IND_CTA
@@ -212,8 +163,6 @@ from estabelecimento_ecf eecf
                     on estm.estabelecimento_id = eecf.estabelecimento_matriz_id
          inner join conta_contasref ctaref
                     on ctaref.estabelecimento_matriz_id = eecf.estabelecimento_matriz_id
-         inner Join contabilistas cont
-                    on cont.estabelecimento_matriz_id = eecf.estabelecimento_matriz_id
 where estm.estabelecimento_id = '/*empresa_id_vtx*/'
   and substring(eecf.periodo_dtini, 1, 4) = substring('/*per_iniAMD*/', 1, 4)
   and eecf.periodo_dtfin = '/*per_finAMD*/';
