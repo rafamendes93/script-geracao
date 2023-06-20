@@ -9,7 +9,7 @@ INSERT INTO [dbo].[estabelecimentos] ([estabelecimento_id], [cnpj], [estabelecim
                                       [per_ref], [apelido], [nire], [dt_arq_atos], [dt_conv_ss_se], [cod_nat_jur],
                                       [cnae_fiscal],
                                       [id_emp_dfe], [id_emp_erp])
-VALUES ('1', '12345678901234', '123', '456', 'Empresa A', 'Empresa A Fantasia', '12345678', 'Rua A', '123', 'Apt 1',
+VALUES ('1', '12345678901234', '1', '456', 'Empresa A', 'Empresa A Fantasia', '12345678', 'Rua A', '123', 'Apt 1',
         'Centro', '1122334455', '9988776655', 'empresaA@example.com', '1234567', 'SP', 'BR', '123456789', '987654321',
         '112233445', '11122233344', 'PJ', '1', '01', '20220101', '20221231', 'PROC-123', 'user123', '20220101',
         '12:34:56', 'SMS', 'Layout A', 'arquivo_entrada.txt', 12345, 'Registro A', '202201', 'Apelido A', '12345678901',
@@ -29,7 +29,7 @@ INSERT INTO [dbo].[estabelecimento_ecf]
  [ind_pj_hab], [ind_polo_am], [ind_zon_exp], [ind_area_com], [ind_pais_a_pais],
  [ind_derex], [ind_aval_estoq], [processo_id], [log_usuid], [log_dt], [log_hr],
  [log_meio], [log_layout], [log_arqentrada], [reg], [per_ref])
-VALUES (N'1', N'1', N'123', N'cod_scp', N'20220201',
+VALUES (N'1', N'1', '1', N'cod_scp', N'20220201',
         N'20220225', N'ESC1', N'0009', N'V', N'E',
         10000.1234, N'20220101', N'N', 'Valor num_rec', N'T', 'Valor hash_ecf_anterior', N'R',
         N'T', N'A', N'PJ', N'FORM', N'mes_bal_red', N'1', N'TE', N'I',
@@ -48,7 +48,7 @@ INSERT INTO [dbo].[contabilistas]
  [email], [cod_mun], [uf], [cod_pais], [validade_dtini], [validade_dtfin],
  [processo_id], [log_usuid], [log_dt], [log_hr], [log_meio], [log_layout],
  [log_arqentrada], [reg], [per_ref])
-VALUES (1, 'Valor estabelecimento_matriz_id', 'Valor contabilista_id',
+VALUES (1, '1', 'Valor contabilista_id',
         '12345678901', '12345678901234', 'Valor crc', 'SP', 'Valor num_seq_crc',
         '20220101', 'Valor nome', 'Valor fantasia', '12345678', 'Valor ender',
         'Valor num', 'Valor compl', 'Valor bairro', '1234567890', '1234567890',
@@ -61,7 +61,7 @@ INSERT INTO [dbo].[contas]
  [nome_cta], [cod_nat_cta], [ind_cta], [nivel], [cod_cta_sup], [cod_cta_ref],
  [inclusao_dt], [validade_dtini], [validade_dtfin], [processo_id], [log_usuid],
  [log_dt], [log_hr], [log_meio], [log_layout], [log_arqentrada], [reg], [per_ref])
-VALUES (1, 'Valor estabelecimento_matriz_id', 'Valor conta_id', 'Valor cod_cta',
+VALUES (1, '1', 'Valor conta_id', 'Valor cod_cta',
         'Valor nome_cta', '01', 'A', 2, 'Valor cod_cta_sup', 'Valor cod_cta_ref',
         '20220101', '20220101', '20221231', 'PROC-001', 'USER001', '20220101',
         '12:34:56', 'SMS', 'Valor log_layout', 'Valor log_arqentrada', 'Valor reg',
@@ -72,7 +72,7 @@ INSERT INTO [dbo].[estabelecimento_signatarios]
  [cod_assin], [email], [fone], [ind_resp_legal], [validade_dtini],
  [validade_dtfin], [processo_id], [log_usuid], [log_dt], [log_hr],
  [log_meio], [log_layout], [log_arqentrada], [reg], [per_ref], [ident_qualif])
-VALUES ('ID_PAI_EXEMPLO', 'ID_EXEMPLO', 'EST_MATRIZ_ID_EXEMPLO', '12345678901234', 'NOME_EXEMPLO',
+VALUES ('ID_PAI_EXEMPLO', 'ID_EXEMPLO', '1', '12345678901234', 'NOME_EXEMPLO',
         'COD', 'email@example.com', '1234567890', '1', '20230101',
         '20231231', 'PROCESSO_ID_EXEMPLO', 'LOG_USUID_EXEMPLO', '20230101', '123456',
         'SMS', 'ARQ_ENTRADA', 'REG_EXEMPLO', '202301', '20200101', 'ident_qualif');
@@ -122,7 +122,7 @@ INSERT INTO [dbo].[participantes]
  [forma_trib_fem])
 VALUES ('Reg001',
         1,
-        'Matriz001',
+        '1',
         'Part001',
         'Pessoa001',
         'F',
@@ -190,7 +190,7 @@ VALUES
     (
         'Pai001',
         'Id001',
-        'Matriz001',
+        '1',
         '20220101',
         '20221231',
         1234.56,
@@ -245,7 +245,7 @@ VALUES
     (
         'Pai001',
         'Id001',
-        'Matriz001',
+        '1',
         '20220101',
         '20221231',
         'Nome Multinacional',
@@ -273,3 +273,20 @@ VALUES
         '202201'
     );
 
+
+INSERT INTO [dbo].[temp_wwreg_0150_0180] (ID_0150, ID_PAI_0150, ID_0180, COD_PART, NOME, COD_PAIS, CNPJ, CPF, NIT, UF,
+                                          IE, IE_ST, COD_MUN, IM, SUFRAMA, COD_REL, DT_INI_REL, DT_FIN_REL)
+VALUES (N'1.123.456789', N'1', N'1.123.456789.100', N'123456789', N'Empresa A', N'1058', N'12345678900001', N'', N'',
+        N'SP', N'', N'', N'1234567', N'98765', N'', N'01', N'20220101', N'20221231');
+INSERT INTO [dbo].[temp_wwreg_0150_0180] (ID_0150, ID_PAI_0150, ID_0180, COD_PART, NOME, COD_PAIS, CNPJ, CPF, NIT, UF,
+                                          IE, IE_ST, COD_MUN, IM, SUFRAMA, COD_REL, DT_INI_REL, DT_FIN_REL)
+VALUES (N'1.123.456789', N'1', N'1.123.456789.101', N'123456789', N'Empresa A', N'1058', N'', N'123456', N'', N'SP',
+        N'', N'', N'1234567', N'98765', N'', N'02', N'', N'');
+INSERT INTO [dbo].[temp_wwreg_0150_0180] (ID_0150, ID_PAI_0150, ID_0180, COD_PART, NOME, COD_PAIS, CNPJ, CPF, NIT, UF,
+                                          IE, IE_ST, COD_MUN, IM, SUFRAMA, COD_REL, DT_INI_REL, DT_FIN_REL)
+VALUES (N'1.987.654321', N'1', N'1.987.654321.200', N'987654321', N'Empresa B', N'1058', N'98765432100002', N'', N'',
+        N'RJ', N'', N'', N'9876543', N'45678', N'', N'03', N'20220101', N'20221231');
+INSERT INTO [dbo].[temp_wwreg_0150_0180] (ID_0150, ID_PAI_0150, ID_0180, COD_PART, NOME, COD_PAIS, CNPJ, CPF, NIT, UF,
+                                          IE, IE_ST, COD_MUN, IM, SUFRAMA, COD_REL, DT_INI_REL, DT_FIN_REL)
+VALUES (N'1.987.654321', N'1', N'1.987.654321.201', N'987654321', N'Empresa B', N'1058', N'', N'654321', N'', N'RJ',
+        N'', N'', N'9876543', N'45678', N'', N'04', N'', N'');

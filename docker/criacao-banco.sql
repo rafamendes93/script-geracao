@@ -1362,3 +1362,26 @@ CREATE TABLE [dbo].[ecf_saldo_contasref]
     [per_ref]                   [varchar](8)            NULL
 ) ON [PRIMARY]
 GO
+
+/* Tabelas apenas para teste */
+CREATE TABLE [dbo].[temp_wwreg_0150_0180] (
+                            ID_0150 VARCHAR(20),
+                            ID_PAI_0150 VARCHAR(10),
+                            ID_0180 VARCHAR(30),
+                            COD_PART VARCHAR(10),
+                            NOME VARCHAR(50),
+                            COD_PAIS VARCHAR(5),
+                            CNPJ VARCHAR(14),
+                            CPF VARCHAR(11),
+                            NIT VARCHAR(20),
+                            UF VARCHAR(2),
+                            IE VARCHAR(20),
+                            IE_ST VARCHAR(20),
+                            COD_MUN VARCHAR(10),
+                            IM VARCHAR(20),
+                            SUFRAMA VARCHAR(20),
+                            COD_REL VARCHAR(10),
+                            DT_INI_REL VARCHAR(10),
+                            DT_FIN_REL VARCHAR(10)
+) ON [PRIMARY]
+GO
